@@ -1,23 +1,25 @@
-# Base stage for building
-FROM node:18-bullseye-slim AS build
+# Use a Node.js image compatible with your project requirements
+FROM node:20-bullseye-slim
 
-# Set the working directory in the container
+# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package files and install dependencies
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy the entire React app source code to the container
+# Install cross-env globally if needed
+RUN npm install -g cross-env
+
+# Copy the rest of the project files
 COPY . .
 
-# Build the React app
+# Build the project
 RUN npm run build
 
-# Expose port 3000 (the port your Node.js app runs on)
+# Expose the port your app will run on
 EXPOSE 3000
 
-# Start the Node.js app
+# Start the application
 CMD ["npm", "start"]
+
