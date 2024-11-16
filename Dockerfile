@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm ci --only=production
 
 # Install cross-env globally if needed
 RUN npm install -g cross-env
